@@ -1,4 +1,4 @@
-// Computes the sequence 0101010101010101... which is 1/3 in binary
+// Computes the sequence 0101010101010101..., which is 1/3 in binary
 
 name 'One Third Machine'
 initial a
