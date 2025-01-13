@@ -1,6 +1,6 @@
 from turing_machine import SimplifiedTuringMachine, TuringMachine, TuringMachineError
 from typing import Generator
-from os import get_terminal_size
+from os import get_terminal_size, startfile
 import re
 
 STRING_INDICATOR = "'"
@@ -74,7 +74,7 @@ def is_comment_or_blank(
     return False
 
 
-def interpret_from_code(code: str) -> Generator[str]:
+def interpret_from_code(code: str, automatically_open_image_generated=False) -> Generator[str]:
     code_lines = code.splitlines()
     blank_symbol = None
     initial_state = None
@@ -177,6 +177,8 @@ def interpret_from_code(code: str) -> Generator[str]:
                 )
                 file_name = transition_diagram_graph.render(format=STATE_DIAGRAM_FORMAT)
                 yield f"Transition diagram rendered as {STATE_DIAGRAM_FORMAT} to file '{file_name}'"
+                if automatically_open_image_generated:
+                    startfile(file_name)
 
             elif code_line.startswith(RUN_WITH_ALL_STEPS_COMMAND):
                 argument = code_line[len(RUN_WITH_ALL_STEPS_COMMAND) :].strip()

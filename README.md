@@ -10,7 +10,7 @@ It can, from a given machine:
 ### TMLang Syntax
 
 Comments are written with `//`, and they must be in a separate line.
-TMLang interprets the code line by line, so statements cannot separated into several lines.
+TMLang interprets the code line by line, so statements cannot be separated into several lines.
 In TMLang, you write strings in two different ways: either with no quotation marks, or by using `''` to make it more clear.
 You write sets by using curly brackets.
 
