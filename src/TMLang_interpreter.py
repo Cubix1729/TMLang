@@ -74,7 +74,9 @@ def is_comment_or_blank(
     return False
 
 
-def interpret_from_code(code: str, automatically_open_image_generated=False) -> Generator[str]:
+def interpret_from_code(
+    code: str, automatically_open_image_generated=False
+) -> Generator[str]:
     code_lines = code.splitlines()
     blank_symbol = None
     initial_state = None
