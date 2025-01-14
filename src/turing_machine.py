@@ -6,7 +6,6 @@ import graphviz
 GO_LEFT_SYMBOL = "L"
 GO_RIGHT_SYMBOL = "R"
 STAY_IN_PLACE_SYMBOL = "N"
-DEFAULT_BLANK_SYMBOL = " "
 
 MAX_NUMBER_OF_STEPS = 2000
 
@@ -35,9 +34,7 @@ class Tape:
 
     def __str__(self):
         output = ""
-        if (
-            self._tape == {}
-        ):  # if self._tape is empty, there will be a ValueError when calling min and max
+        if self._tape == {}:  # if self._tape is empty, there will be a ValueError when calling min and max
             return ""
         min_used_index = min(self._tape.keys())
         max_used_index = max(self._tape.keys())
@@ -51,9 +48,7 @@ class Tape:
 
     def render_with_pos_indicator(self, head_position: int):
         output = ""
-        if (
-            self._tape == {}
-        ):  # if self._tape is empty, there will be a ValueError when calling min and max
+        if self._tape == {}:  # if self._tape is empty, there will be a ValueError when calling min and max
             return ""
         min_used_index = min(self._tape.keys())
         max_used_index = max(self._tape.keys())
@@ -63,9 +58,7 @@ class Tape:
             else:
                 output += self.blank_symbol
 
-        output += (
-            "\n" + " " * (head_position - min_used_index - 1) + "^"
-        )  # adds a position pointer
+        output += "\n" + " " * (head_position - min_used_index - 1) + "^"  # adds a position pointer
         return output
 
 
@@ -126,34 +119,22 @@ class TransitionFunction:
             direction = value[2]
 
             if start_state in final_states:
-                raise TuringMachineError(
-                    f"Transition function not valid: state '{key[0]}' is a final state"
-                )
+                raise TuringMachineError(f"Transition function not valid: state '{key[0]}' is a final state")
 
             if start_state not in possible_states:
-                raise TuringMachineError(
-                    f"Transition function not valid: '{key[0]}' not in possible states"
-                )
+                raise TuringMachineError(f"Transition function not valid: '{key[0]}' not in possible states")
 
             if new_state not in possible_states:
-                raise TuringMachineError(
-                    f"Transition function not valid: '{value[0]}' is not in possible states"
-                )
+                raise TuringMachineError(f"Transition function not valid: '{value[0]}' is not in possible states")
 
             if symbol_read not in alphabet:
-                raise TuringMachineError(
-                    f"Transition function not valid: '{key[1]}' is not in alphabet"
-                )
+                raise TuringMachineError(f"Transition function not valid: '{key[1]}' is not in alphabet")
 
             if new_symbol not in alphabet:
-                raise TuringMachineError(
-                    f"Transition function not valid: '{value[1]}' is not in alphabet"
-                )
+                raise TuringMachineError(f"Transition function not valid: '{value[1]}' is not in alphabet")
 
             if direction not in (GO_LEFT_SYMBOL, GO_RIGHT_SYMBOL, STAY_IN_PLACE_SYMBOL):
-                raise TuringMachineError(
-                    f"Transition function not valid: direction indicator '{value[2]}' is invalid"
-                )
+                raise TuringMachineError(f"Transition function not valid: direction indicator '{value[2]}' is invalid")
 
 
 class TuringMachine:
@@ -183,20 +164,14 @@ class TuringMachine:
         # We test the given values to see if they're correct/valid
 
         if not blank_symbol in alphabet:  # we verify blank_symbol is valid
-            raise TuringMachineError(
-                f"Blank symbol chosen '{blank_symbol}' isn't in alphabet"
-            )
+            raise TuringMachineError(f"Blank symbol chosen '{blank_symbol}' isn't in alphabet")
 
         if not initial_state in possible_states:  # we verify initial_state in valid
-            raise TuringMachineError(
-                f"Initial state '{initial_state}' isn't in possible states"
-            )
+            raise TuringMachineError(f"Initial state '{initial_state}' isn't in possible states")
 
         for state in final_states:  # we verify final_states is valid
             if not state in possible_states:
-                raise TuringMachineError(
-                    f"Invalid final state: '{state}' not in possible states"
-                )
+                raise TuringMachineError(f"Invalid final state: '{state}' not in possible states")
 
         self.transition_function = TransitionFunction(transition_function)
         self.transition_function.verify_validity(
@@ -265,9 +240,7 @@ class TuringMachine:
     def initialise_computation(self, starting_tape: str):
         for char in starting_tape:  # we verify starting_tape is valid
             if not char in self.alphabet:
-                raise TuringMachineError(
-                    f"Invalid starting tape: symbol '{char}' not in alphabet"
-                )
+                raise TuringMachineError(f"Invalid starting tape: symbol '{char}' not in alphabet")
 
         self.tape = Tape(starting_tape, blank_symbol=self.blank_symbol)
         self.head_position = 0
@@ -280,9 +253,9 @@ class TuringMachine:
         current_state = self.state
         symbol_under_head = self.tape[self.head_position]
         try:
-            next_state, symbol_to_write, direction_to_move_head = (
-                self.transition_function[(current_state, symbol_under_head)]
-            )
+            next_state, symbol_to_write, direction_to_move_head = self.transition_function[
+                (current_state, symbol_under_head)
+            ]
         except KeyError:
             raise TuringMachineError(
                 f"Turing machine entered a state undefined by the transition function,"
@@ -299,9 +272,7 @@ class TuringMachine:
     def in_final_state(self):
         return self.state in self.final_states
 
-    def perform_computation_from_tape(
-        self, starting_tape: str, all_steps: bool = False
-    ) -> Generator[str]:
+    def perform_computation_from_tape(self, starting_tape: str, all_steps: bool = False) -> Generator[str]:
         # return a generator that yields formatted string for each step of the computation
         # if all_steps is set to False, the ouput only contains the final result
         # after MAX_NUMBER_OF_STEPS steps, the program will assume the machine is caught in an infinite loop
@@ -328,9 +299,7 @@ class SimplifiedTuringMachine(TuringMachine):
     as they will be deduced from the transition function given
     """
 
-    def __init__(
-        self, name, transition_function, initial_state, final_states, blank_symbol
-    ):
+    def __init__(self, name, transition_function, initial_state, final_states, blank_symbol):
         alphabet = []
         possible_states = []
 

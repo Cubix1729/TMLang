@@ -48,9 +48,7 @@ def get_separator() -> str:
 
 def evaluate_set(
     set_str: str,
-) -> (
-    tuple
-):  # takes a str written with set notation and returns a tuple listing the elements given
+) -> tuple:  # takes a str written with set notation and returns a tuple listing the elements given
     # ex : evaluate_set("{test, test1, 'test 2'}") gives ('test', 'test1', 'test 2')
     # if the function returns None, the input is invalid
     set_str = set_str.strip()
@@ -74,9 +72,7 @@ def is_comment_or_blank(
     return False
 
 
-def interpret_from_code(
-    code: str, automatically_open_image_generated=False
-) -> Generator[str]:
+def interpret_from_code(code: str, automatically_open_image_generated=False) -> Generator[str]:
     code_lines = code.splitlines()
     blank_symbol = None
     initial_state = None
@@ -86,10 +82,7 @@ def interpret_from_code(
 
     # We first of all interpret the values defined with the keywords: name, initial, final, and blank
     for line_number in range(len(code_lines)):
-        if all(
-            x is not None
-            for x in [blank_symbol, initial_state, final_states, machine_name]
-        ):
+        if all(x is not None for x in [blank_symbol, initial_state, final_states, machine_name]):
             break
 
         code_line = code_lines[line_number].strip()
@@ -110,26 +103,18 @@ def interpret_from_code(
                 argument = code_line[len(FINAL_STATES_KEYWORD) :].strip()
                 final_states = evaluate_set(argument)
                 if final_states is None:
-                    raise TMLangSyntaxError(
-                        f"line {line_number + 1}: invalid set syntax '{argument}'"
-                    )
+                    raise TMLangSyntaxError(f"line {line_number + 1}: invalid set syntax '{argument}'")
 
             else:
                 raise TMLangSyntaxError(f"line {line_number + 1}: invalid syntax")
 
-    if any(
-        x is None for x in [blank_symbol, initial_state, final_states, machine_name]
-    ):
-        raise TMLangValueError(
-            "Not all necessary values were precised (blank, initial, final, name)"
-        )
+    if any(x is None for x in [blank_symbol, initial_state, final_states, machine_name]):
+        raise TMLangValueError("Not all necessary values were precised (blank, initial, final, name)")
 
     code_line = code_lines[line_number].strip()
     while not code_line == START_TRANSITION_FUNCTION_KEYWORD:
         if not is_comment_or_blank(code_line):
-            raise TMLangSyntaxError(
-                f"line {line_number}: expected {START_TRANSITION_FUNCTION_KEYWORD}"
-            )
+            raise TMLangSyntaxError(f"line {line_number}: expected {START_TRANSITION_FUNCTION_KEYWORD}")
         line_number += 1
         code_line = code_lines[line_number].strip()
 
@@ -147,9 +132,7 @@ def interpret_from_code(
                 transition_function[key] = value
 
             else:
-                raise TMLangSyntaxError(
-                    f"line {line_number + 1}: expected {END_TRANSITION_FUNCTION_KEYWORD}"
-                )
+                raise TMLangSyntaxError(f"line {line_number + 1}: expected {END_TRANSITION_FUNCTION_KEYWORD}")
         line_number += 1
         code_line = code_lines[line_number].strip()
 
@@ -174,9 +157,7 @@ def interpret_from_code(
                 yield turing_machine_described.get_formal_definition()
 
             elif code_line == RENDER_GRAPHICAL_TRANSITION_DIAGRAM_COMMAND:
-                transition_diagram_graph = (
-                    turing_machine_described.get_transition_diagram()
-                )
+                transition_diagram_graph = turing_machine_described.get_transition_diagram()
                 file_name = transition_diagram_graph.render(format=STATE_DIAGRAM_FORMAT)
                 yield f"Transition diagram rendered as {STATE_DIAGRAM_FORMAT} to file '{file_name}'"
                 if automatically_open_image_generated:
@@ -202,5 +183,3 @@ def interpret_from_code(
                 raise TMLangSyntaxError(f"line {line_number + 1}: unknown action")
 
             is_first_action = False
-
-

@@ -7,9 +7,7 @@ parser = argparse.ArgumentParser(
     description="A small language for programming Turing machines",
 )
 
-parser.add_argument(
-    "filename", help="the path to the file containing the code you want to interpret"
-)
+parser.add_argument("filename", help="the path to the file containing the code you want to interpret")
 
 parser.add_argument(
     "-o",
