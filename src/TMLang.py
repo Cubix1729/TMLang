@@ -1,4 +1,5 @@
-from TMLang_interpreter import interpret_from_code
+from turing_machine import TuringMachineError
+from TMLang_interpreter import interpret_from_code, TMLangSyntaxError, TMLangValueError
 import argparse
 import sys
 
@@ -7,7 +8,7 @@ parser = argparse.ArgumentParser(
     description="A small language for programming Turing machines",
 )
 
-parser.add_argument("filename", help="the path to the file containing the code you want to interpret")
+parser.add_argument("filename", help="the path to the file containing the code to interpret")
 
 parser.add_argument(
     "-o",
@@ -38,6 +39,14 @@ with open(args.filename, "r") as file:
 if args.output is not None:
     sys.stdout = open(args.output, "w", encoding="utf-8")
 
-for i in interpret_from_code(code, automatically_open_image_generated=args.auto_open):
-    if not args.verify:
-        print(i)
+try:
+    for i in interpret_from_code(code, automatically_open_image_generated=args.auto_open):
+        if not args.verify:
+            print(i)
+
+except TMLangSyntaxError as error:
+    print(f"TMLangSyntaxError: {error}")
+except TMLangValueError as error:
+    print(f"TMLangValueError: {error}")
+except TuringMachineError as error:
+    print(f"TuringMachineError: {error}")
