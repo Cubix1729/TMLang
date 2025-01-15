@@ -35,6 +35,7 @@ When the Turing machine is completely defined, you can use it with the following
 #### Example
 
 Here is an example TMLang program (you can find it in examples/one_third_machine.tmlang):
+
 ```
 // Computes the sequence 0101010101010101..., which is 1/3 in binary
 
@@ -55,7 +56,9 @@ endprogr
 #run ''
 #renderdiagram svg
 ```
+
 Ouput:
+
 ```
 Turing machine 'One Third Machine' defined with:
 * Set of states 𝙌 = {'a', 'b'}
@@ -85,7 +88,9 @@ The Turing machine seems to be caught in an infinite loop. After 200 steps, the 
 
 Transition diagram rendered as svg to file 'transition_diagram_One_Third_Machine.svg'
 ```
-transition_diagram_One_Third_Machine.svg:
+
+transition_diagram_One_Third_Machine.svg (you can find other examples of images rendered in /images):
+
 ![alt text](.\images\transition_diagram_One_Third_Machine.svg)
 
 
