@@ -3,7 +3,7 @@ import argparse
 import sys
 
 parser = argparse.ArgumentParser(
-    prog="TMLang",
+    prog="TMLang.py",
     description="A small language for programming Turing machines",
 )
 
