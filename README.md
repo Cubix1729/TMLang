@@ -1,5 +1,5 @@
 # TMLang
-TMLang, which stands for Turing Machine Language, is a small language for programming Turing machines.
+TMLang, which stands for Turing Machine Language, is a small language for designing and programming Turing machines.
 It can, from a given machine:
  - Give the formal mathematical definition and the render the transition function as a table
  - Perform a computation from a given starting tape
@@ -21,7 +21,7 @@ To create a Turing machine in TMLang, you first have to precise:
  - The set of final states (possibly empty), with `final`
 
 Then, you write the transition function in this way:
- - You first you the keyword `startprog` to indicate you are starting the transition function
+ - You first use the keyword `startprog` to indicate you are starting the transition function
  - Then, the transition function is written line by line, ideally with some identation at the start of each line. The syntax is the following:
     - `old state, symbol read: new state, symbol to write, direction`
  - To end the transition function definition, use the keyword `endprogr`
