@@ -229,6 +229,9 @@ class TuringMachine:
             new_symbol = value[1]
             direction = value[2]
 
+            if new_state in self.final_states:
+                transition_diagram_output.node(new_state, shape="doublecircle")
+
             transition_diagram_output.edge(
                 start_state,
                 new_state,
