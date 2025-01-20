@@ -116,3 +116,9 @@ options:
 ### GUI Program
 
 Work in progress
+
+
+## Dependencies
+
+ - `prettytable`
+ - `graphviz`
