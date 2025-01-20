@@ -113,12 +113,7 @@ options:
 ```
 
 
-### GUI Program
-
-Work in progress
-
-
 ## Dependencies
 
- - `prettytable`
- - `graphviz`
+ - `prettytable` used for displaying transition tables
+ - `graphviz` used for rendering graphical transition diagrams
