@@ -19,28 +19,28 @@ class Tape:
 
     def __init__(self, starting_configuration: str, blank_symbol: str):
         self.blank_symbol = blank_symbol
-        self._tape: dict = {}
+        self.tape: dict = {}
         for i in range(len(starting_configuration)):
-            self._tape[i] = starting_configuration[i]
+            self.tape[i] = starting_configuration[i]
 
     def __getitem__(self, index: int):
-        if index in self._tape:
-            return self._tape[index]
+        if index in self.tape:
+            return self.tape[index]
         else:
             return self.blank_symbol
 
     def __setitem__(self, index: int, char: str):
-        self._tape[index] = char
+        self.tape[index] = char
 
     def __str__(self):
         output = ""
-        if self._tape == {}:  # if self._tape is empty, there will be a ValueError when calling min and max
+        if self.tape == {}:  # if self._tape is empty, there will be a ValueError when calling min and max
             return ""
-        min_used_index = min(self._tape.keys())
-        max_used_index = max(self._tape.keys())
+        min_used_index = min(self.tape.keys())
+        max_used_index = max(self.tape.keys())
         for i in range(min_used_index, max_used_index + 1):
-            if i in self._tape:
-                output += self._tape[i]
+            if i in self.tape:
+                output += self.tape[i]
             else:
                 output += self.blank_symbol
 
@@ -48,13 +48,13 @@ class Tape:
 
     def render_with_pos_indicator(self, head_position: int):
         output = ""
-        if self._tape == {}:  # if self._tape is empty, there will be a ValueError when calling min and max
+        if self.tape == {}:  # if self._tape is empty, there will be a ValueError when calling min and max
             return ""
-        min_used_index = min(self._tape.keys())
-        max_used_index = max(self._tape.keys())
+        min_used_index = min(self.tape.keys())
+        max_used_index = max(self.tape.keys())
         for i in range(min_used_index, max_used_index + 1):
-            if i in self._tape:
-                output += self._tape[i]
+            if i in self.tape:
+                output += self.tape[i]
             else:
                 output += self.blank_symbol
 
