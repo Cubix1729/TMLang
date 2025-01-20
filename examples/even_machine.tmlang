@@ -1,0 +1,19 @@
+// Calculates if a unary sequence of 1's is even or not
+// Halts on state 'true' if even and 'false' otherwise
+
+name 'Even Machine'
+blank 0
+initial s0
+final {true, false}
+
+startprogr
+    s0, 1: s1, 1, R
+    s1, 1: s0, 1, R
+    s0, 0: true, 0, N
+    s1, 0: false, 0, N
+endprogr
+
+
+#printdef
+#run '111'
+#renderdiagram

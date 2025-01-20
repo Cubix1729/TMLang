@@ -15,4 +15,4 @@ endprogr
 
 #printdef
 #run ''
-#renderdiagram svg
+#renderdiagram
