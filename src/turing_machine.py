@@ -34,7 +34,7 @@ class Tape:
 
     def __str__(self):
         output = ""
-        if self.tape == {}:  # if self._tape is empty, there will be a ValueError when calling min and max
+        if self.tape == {}:  # if self.tape is empty, there will be a ValueError when calling min and max
             return ""
         min_used_index = min(self.tape.keys())
         max_used_index = max(self.tape.keys())
@@ -58,7 +58,7 @@ class Tape:
             else:
                 output += self.blank_symbol
 
-        output += "\n" + " " * (head_position - min_used_index - 1) + "^"  # adds a position pointer
+        output += "\n" + " " * (head_position - min_used_index) + "^"  # adds a position pointer
         return output
 
 
@@ -139,7 +139,7 @@ class TransitionFunction:
 
 class TuringMachine:
     """
-    Implements a Turing machine with an infinite tape on both sides :
+    Implements a Turing machine with an infinite tape on both sides:
 
     possible_states: a list of the turing machine's possible states (must be strings)
     initial_state: the state in which the machine starts
@@ -276,7 +276,7 @@ class TuringMachine:
         return self.state in self.final_states
 
     def perform_computation_from_tape(self, starting_tape: str, all_steps: bool = False) -> Generator[str]:
-        # return a generator that yields formatted string for each step of the computation
+        # returns a generator that yields formatted string for each step of the computation
         # if all_steps is set to False, the ouput only contains the final result
         # after MAX_NUMBER_OF_STEPS steps, the program will assume the machine is caught in an infinite loop
         self.initialise_computation(starting_tape=starting_tape)
