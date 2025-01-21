@@ -11,8 +11,8 @@ It can, from a given machine:
 
 Comments are written with `//`, and they must be in a separate line.
 TMLang interprets the code line by line, so statements cannot be separated into several lines.
-In TMLang, you write strings in two different ways: either with no quotation marks, or by using `''` to make it more clear.
-You write sets by using curly brackets.
+In TMLang, strings are written in two different ways: either with no quotation marks, or by using `''` to make it more clear.
+Sets are written using curly brackets.
 
 To create a Turing machine in TMLang, you first have to precise:
  - The machine's name, with the keyword `name`
@@ -34,7 +34,7 @@ When the Turing machine is completely defined, you can use it with the following
 
 #### Example
 
-Here is an example TMLang program (you can find it in examples/one_third_machine.tmlang):
+Here is an example TMLang program (it can be found in examples/one_third_machine.tmlang):
 
 ```
 // Computes the sequence 0101010101010101..., which is 1/3 in binary
@@ -89,25 +89,25 @@ The Turing machine seems to be caught in an infinite loop. After 200 steps, the 
 Transition diagram rendered as svg to file 'transition_diagram_One_Third_Machine.svg'
 ```
 
-transition_diagram_One_Third_Machine.svg (you can find other examples of images rendered in /images):
+transition_diagram_One_Third_Machine.svg (other examples of images rendered can be found in images folder):
 
 ![alt text](./images/transition_diagram_One_Third_Machine.svg)
 
 
 ### CLI Progam
 
-To execute a TMLang Turing machine, you can use the command line interpreter (TMLang.py).
+To execute a TMLang Turing machine, the command line interpreter (TMLang.py) can be used.
 ```
 usage: TMLang.py [-h] [-o OUTPUT] [-v] [-a] filename
 
 A small language for programming Turing machines
 
 positional arguments:
-  filename             the path to the file containing the code you want to interpret
+  filename             the path to the file containing the code to interpret
 
 options:
   -h, --help           show this help message and exit
-  -o, --output OUTPUT  the file you want to write the generated output (default: stdout)
+  -o, --output OUTPUT  the file to write the generated output (default: stdout)
   -v, --verify         if used, the output is printed only in case of error in the program given
   -a, --auto-open      when rendering a transition diagram, the program will automatically the generated image
 ```

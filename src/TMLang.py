@@ -14,7 +14,7 @@ parser.add_argument(
     "-o",
     "--output",
     default=None,
-    help="the file you want to write the generated output (default: stdout)",
+    help="the file to write the generated output (default: stdout)",
 )
 
 parser.add_argument(
