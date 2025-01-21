@@ -1,0 +1,20 @@
+// Adds together two unary sequence of 1's separated by a 0
+// Ex: '11101111' (3 + 4) should give output '1111111' (7)
+
+name 'Adding Machine'
+blank 0
+initial s0
+final {s3}
+
+startprogr
+    s0, 1: s0, 1, R
+    s0, 0: s1, 1, N
+    s1, 1: s1, 1, R
+    s1, 0: s2, 0, L
+    s2, 1: s3, 0, N
+endprogr
+
+
+#printdef
+#run '11101111'
+#renderdiagram svg
