@@ -134,7 +134,10 @@ def interpret_from_code(code: str, automatically_open_image_generated=False) -> 
             else:
                 raise TMLangSyntaxError(f"line {line_number + 1}: expected {END_TRANSITION_FUNCTION_KEYWORD}")
         line_number += 1
-        code_line = code_lines[line_number].strip()
+        try:
+            code_line = code_lines[line_number].strip()
+        except IndexError:
+            raise TMLangSyntaxError(f"line {line_number}: expected {END_TRANSITION_FUNCTION_KEYWORD}")
 
     turing_machine_described = SimplifiedTuringMachine(
         name=machine_name,
