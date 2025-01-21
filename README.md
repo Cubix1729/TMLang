@@ -91,7 +91,7 @@ Transition diagram rendered as svg to file 'transition_diagram_One_Third_Machine
 
 transition_diagram_One_Third_Machine.svg (you can find other examples of images rendered in /images):
 
-![alt text](.\images\transition_diagram_One_Third_Machine.svg)
+![alt text](./images/transition_diagram_One_Third_Machine.svg)
 
 
 ### CLI Progam
