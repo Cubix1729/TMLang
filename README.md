@@ -100,7 +100,7 @@ To execute a TMLang Turing machine, the command line interpreter (TMLang.py) can
 ```
 usage: TMLang.py [-h] [-o OUTPUT] [-v] [-a] filename
 
-A small language for programming Turing machines
+A small language for designing and programming Turing machines
 
 positional arguments:
   filename             the path to the file containing the code to interpret

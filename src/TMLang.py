@@ -5,7 +5,7 @@ import sys
 
 parser = argparse.ArgumentParser(
     prog="TMLang.py",
-    description="A small language for programming Turing machines",
+    description="A small language for designing and programming Turing machines",
 )
 
 parser.add_argument("filename", help="the path to the file containing the code to interpret")
