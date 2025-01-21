@@ -38,6 +38,7 @@ class Tape:
             return ""
         min_used_index = min(self.tape.keys())
         max_used_index = max(self.tape.keys())
+
         for i in range(min_used_index, max_used_index + 1):
             if i in self.tape:
                 output += self.tape[i]
@@ -52,6 +53,13 @@ class Tape:
             return ""
         min_used_index = min(self.tape.keys())
         max_used_index = max(self.tape.keys())
+
+        # We update max_used_index or min_used_index with head_position if necessary
+        if head_position > max_used_index:
+            max_used_index = head_position
+        if head_position < min_used_index:
+            min_used_index = head_position
+
         for i in range(min_used_index, max_used_index + 1):
             if i in self.tape:
                 output += self.tape[i]
@@ -69,7 +77,7 @@ class TransitionFunction:
         # {(current state, symbol scanned): (next state, new symbol, moving direction), etc...}
 
     def transition_table(self):
-        # outputs the transition table as a str
+        # Outputs the transition table as a string
         table = PrettyTable(
             [
                 "Current state",
@@ -276,9 +284,10 @@ class TuringMachine:
         return self.state in self.final_states
 
     def perform_computation_from_tape(self, starting_tape: str, all_steps: bool = False) -> Generator[str]:
-        # returns a generator that yields formatted string for each step of the computation
-        # if all_steps is set to False, the ouput only contains the final result
-        # after MAX_NUMBER_OF_STEPS steps, the program will assume the machine is caught in an infinite loop
+        """Returns a generator that yields formatted string for each step of the computation
+        if all_steps is set to False, the ouput only contains the final result
+        after MAX_NUMBER_OF_STEPS steps, the program will assume the machine is caught in an infinite loop"""
+
         self.initialise_computation(starting_tape=starting_tape)
         num_step = 1
         infinite_loop = False
