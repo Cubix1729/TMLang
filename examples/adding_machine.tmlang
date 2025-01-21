@@ -17,4 +17,4 @@ endprogr
 
 #printdef
 #run '11101111'
-#renderdiagram svg
+#renderdiagram
