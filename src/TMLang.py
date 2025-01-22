@@ -4,7 +4,6 @@ import argparse
 import sys
 
 parser = argparse.ArgumentParser(
-    prog="TMLang.py",
     description="A small language for designing and programming Turing machines",
 )
 
