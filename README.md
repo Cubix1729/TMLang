@@ -7,6 +7,8 @@ It can, from a given machine:
 
 ## Usage
 
+The definition of a Turing machine used in TMLang is similar to the one on the [wikipedia page](https://en.wikipedia.org/wiki/Turing_machine).
+
 ### TMLang Syntax
 
 Comments are written with `//`, and they must be in a separate line.
@@ -34,7 +36,7 @@ When the Turing machine is completely defined, you can use it with the following
 
 #### Example
 
-Here is an example TMLang program (it can be found in examples/one_third_machine.tmlang):
+Here is an example TMLang program (it can be found in [examples/one_third_machine.tmlang](./examples/one_third_machine.tmlang)):
 
 ```
 // Computes the sequence 0101010101010101..., which is 1/3 in binary
@@ -89,14 +91,14 @@ The Turing machine seems to be caught in an infinite loop. After 200 steps, the 
 Transition diagram rendered as svg to file 'transition_diagram_One_Third_Machine.svg'
 ```
 
-transition_diagram_One_Third_Machine.svg (other examples of images rendered can be found in images folder):
+transition_diagram_One_Third_Machine.svg (other examples of images rendered can be found in [images](./images/) folder):
 
 ![alt text](./images/transition_diagram_One_Third_Machine.svg)
 
 
 ### CLI Progam
 
-To execute a TMLang Turing machine, the command line interpreter (TMLang.py) can be used.
+To execute a TMLang Turing machine, the command line interpreter ([TMLang.py](./src/TMLang.py)) can be used.
 ```
 usage: TMLang.py [-h] [-o OUTPUT] [-v] [-a] filename
 
@@ -117,3 +119,5 @@ options:
 
  - `prettytable` used for displaying transition tables
  - `graphviz` used for rendering graphical transition diagrams
+
+ `black` was used for code formatting
