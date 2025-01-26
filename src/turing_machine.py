@@ -1,11 +1,13 @@
-from prettytable import PrettyTable
+from prettytable import PrettyTable, TableStyle
 from typing import Generator
 import graphviz
 
-# Symbol defnitions
+# Symbol definitions
 GO_LEFT_SYMBOL = "L"
 GO_RIGHT_SYMBOL = "R"
 STAY_IN_PLACE_SYMBOL = "N"
+
+TRANSITION_TABLE_STYLE = TableStyle.SINGLE_BORDER
 
 MAX_NUMBER_OF_STEPS = 2000
 
@@ -23,7 +25,7 @@ class Tape:
         for i in range(len(starting_configuration)):
             self.tape[i] = starting_configuration[i]
 
-    def __getitem__(self, index: int):
+    def __getitem__(self, index: int) -> str:
         if index in self.tape:
             return self.tape[index]
         else:
@@ -32,7 +34,7 @@ class Tape:
     def __setitem__(self, index: int, char: str):
         self.tape[index] = char
 
-    def __str__(self):
+    def __str__(self) -> str:
         output = ""
         if self.tape == {}:  # if self.tape is empty, there will be a ValueError when calling min and max
             return ""
@@ -47,7 +49,7 @@ class Tape:
 
         return output
 
-    def render_with_pos_indicator(self, head_position: int):
+    def render_with_pos_indicator(self, head_position: int) -> str:
         output = ""
         if self.tape == {}:  # if self._tape is empty, there will be a ValueError when calling min and max
             return ""
@@ -72,11 +74,11 @@ class Tape:
 
 class TransitionFunction:
     def __init__(self, transition_function: dict):
-        self.transition_function = transition_function
         # The right format for transition_function is:
         # {(current state, symbol scanned): (next state, new symbol, moving direction), etc...}
+        self.transition_function = transition_function
 
-    def transition_table(self):
+    def transition_table(self) -> str:
         # Outputs the transition table as a string
         table = PrettyTable(
             [
@@ -91,15 +93,16 @@ class TransitionFunction:
         for key, value in self.transition_function.items():
             table.add_row([key[0], key[1], value[0], value[1], value[2]])
 
+        table.set_style(TRANSITION_TABLE_STYLE)
         return table.get_string()
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.transition_table()
 
-    def __getitem__(self, index):
+    def __getitem__(self, index: tuple) -> tuple:
         return self.transition_function[index]
 
-    def as_dict(self):
+    def as_dict(self) -> dict:
         return self.transition_function
 
     def verify_validity(
@@ -203,9 +206,8 @@ class TuringMachine:
             starting_configuration="", blank_symbol=blank_symbol
         )  # We don't precise the starting tape; it will be initialised later on
 
-    def get_formal_definition(
-        self,
-    ) -> str:  # returns a string representation of the machine's definition
+    def get_formal_definition(self) -> str:
+        # returns a string representation of the machine's definition
         output = ""
         output += f"Turing machine '{self.name}' defined with:\n"
         output += f"* Set of states 𝙌 = {set(self.possible_states)}\n"
