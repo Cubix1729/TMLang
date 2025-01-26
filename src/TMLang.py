@@ -41,7 +41,9 @@ def main():
         sys.stdout = open(args.output, "w", encoding="utf-8")
 
     try:
-        for i in interpret_from_code(code, automatically_open_image_generated=args.auto_open):
+        for i in interpret_from_code(
+            code, render_image=(not args.verify), automatically_open_image_generated=args.auto_open
+        ):
             if not args.verify:
                 print(i)
 

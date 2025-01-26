@@ -46,9 +46,8 @@ def get_separator() -> str:
     return "\n" + "\n" + "-" * get_terminal_size().columns + "\n" + "\n"
 
 
-def evaluate_set(
-    set_str: str,
-) -> tuple:  # takes a str written with set notation and returns a tuple listing the elements given
+def evaluate_set(set_str: str) -> tuple:
+    # takes a str written with set notation and returns a tuple listing the elements given
     # ex : evaluate_set("{test, test1, 'test 2'}") gives ('test', 'test1', 'test 2')
     # if the function returns None, the input is invalid
     set_str = set_str.strip()
@@ -64,15 +63,14 @@ def evaluate_set(
     return tuple(output_list)
 
 
-def is_comment_or_blank(
-    line: str,
-) -> bool:  # returns True if the line can be ignored by the interpreter
+def is_comment_or_blank(line: str) -> bool:
+    # returns True if the line can be ignored by the interpreter
     if line.strip() == "" or line.strip().startswith("//"):
         return True
     return False
 
 
-def interpret_from_code(code: str, automatically_open_image_generated=False) -> Generator[str]:
+def interpret_from_code(code: str, render_image=True, automatically_open_image_generated=False) -> Generator[str]:
     code_lines = code.splitlines()
     blank_symbol = None
     initial_state = None
@@ -147,15 +145,16 @@ def interpret_from_code(code: str, automatically_open_image_generated=False) -> 
         final_states=final_states,
     )
 
+    # We then execute eventual commands
     is_first_action = True  # used for printing the separator correctly
-
     for line_number in range(line_number + 1, len(code_lines)):
         code_line = code_lines[line_number].strip()
 
-        if not is_first_action:
-            yield get_separator()
-
         if not is_comment_or_blank(code_line):
+
+            if not is_first_action:
+                yield get_separator()
+
             if code_line == GET_FORMAL_DEFINITION_COMMAND:
                 yield turing_machine_described.get_formal_definition()
 
@@ -166,8 +165,9 @@ def interpret_from_code(code: str, automatically_open_image_generated=False) -> 
                     image_format = argument
                 else:
                     image_format = STATE_DIAGRAM_FORMAT
-                file_name = transition_diagram_graph.render(format=image_format)
-                yield f"Transition diagram rendered as {image_format} to file '{file_name}'"
+                if render_image:  # don't render images in verifying mode
+                    file_name = transition_diagram_graph.render(format=image_format)
+                    yield f"Transition diagram rendered as {image_format} to file '{file_name}'"
                 if automatically_open_image_generated:
                     startfile(file_name)
 
