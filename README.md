@@ -1,4 +1,5 @@
 # TMLang
+
 TMLang, which stands for Turing Machine Language, is a small language for designing and programming Turing machines.
 It can, from a given machine:
  - Give the formal mathematical definition and the render the transition function as a table
@@ -31,12 +32,12 @@ Then, you write the transition function in this way:
 When the Turing machine is completely defined, you can use it with the following commands:
  - `#printdef` to print the complete mathematical definition
  - `#run` to run the Turing machine from the starting tape precised, and print the final result of the computation
- - `#runsteps`: does the same thing except it prints all intermediate steps as well
+ - `#runsteps` does the same thing except it prints all intermediate steps as well
  - `#renderdiagram` renders the transition diagram to a file in the format precised (default: pdf)
 
 #### Example
 
-Here is an example TMLang program (it can be found in [examples/one_third_machine.tmlang](./examples/one_third_machine.tmlang)):
+Here is an example of a simple TMLang program (it can be found in [examples/one_third_machine.tmlang](./examples/one_third_machine.tmlang)):
 
 ```
 // Computes the sequence 0101010101010101..., which is 1/3 in binary
@@ -69,12 +70,12 @@ Turing machine 'One Third Machine' defined with:
 * Alphabet 𝜞 = {'0', '1'} with blank symbol 𝑩 = '0'
 * Transition function 𝛿 : (𝙌 ∖ 𝙁) × 𝙁 → 𝙌 × 𝙁 × {L, R, N}, represented as the following table:
 
-+---------------+----------------+------------+--------------+------------------+
-| Current state | Scanned symbol | Next state | Print symbol | Moving direction |
-+---------------+----------------+------------+--------------+------------------+
-|       a       |       0        |     b      |      0       |        R         |
-|       b       |       0        |     a      |      1       |        R         |
-+---------------+----------------+------------+--------------+------------------+
+┌───────────────┬────────────────┬────────────┬──────────────┬──────────────────┐
+│ Current state │ Scanned symbol │ Next state │ Print symbol │ Moving direction │
+├───────────────┼────────────────┼────────────┼──────────────┼──────────────────┤
+│       a       │       0        │     b      │      0       │        R         │
+│       b       │       0        │     a      │      1       │        R         │
+└───────────────┴────────────────┴────────────┴──────────────┴──────────────────┘
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
