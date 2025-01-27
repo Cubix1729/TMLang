@@ -69,7 +69,7 @@ def is_blank(line: str) -> bool:
 def remove_comments_and_blanks(line: str) -> str:
     # removes the comment contained in the line (if there is one)
     # it also removes all the blanks at the start and the end of the line
-    return re.sub(f"{COMMENT_INDICATOR}.*", "", line).strip()
+    return re.sub(f"{COMMENT_INDICATOR}.*", "", line).rstrip()
 
 
 def interpret_from_code(code: str, render_image=True, automatically_open_image_generated=False) -> Generator[str]:
@@ -125,7 +125,7 @@ def interpret_from_code(code: str, render_image=True, automatically_open_image_g
 
     while not code_line == END_TRANSITION_FUNCTION_KEYWORD:
         if not is_blank(code_line):
-            if re.fullmatch(".+,.+:.+,.+,.+", code_line):
+            if re.fullmatch("\s+.+,.+:.+,.+,.+", code_line):
                 key = tuple(x.strip() for x in code_line.split(":")[0].split(","))
 
                 value = tuple(x.strip() for x in code_line.split(":")[1].split(","))
@@ -167,7 +167,7 @@ def interpret_from_code(code: str, render_image=True, automatically_open_image_g
                     image_format = argument
                 else:
                     image_format = STATE_DIAGRAM_FORMAT
-                if render_image:  # don't render images in verifying mode
+                if render_image:  # we don't render images in verifying mode
                     file_name = transition_diagram_graph.render(format=image_format)
                     yield f"Transition diagram rendered as {image_format} to file '{file_name}'"
                 if automatically_open_image_generated:

@@ -25,7 +25,7 @@ To create a Turing machine in TMLang, you first have to precise:
 
 Then, you write the transition function in this way:
  - You first use the keyword `startprog` to indicate you are starting the transition function
- - Then, the transition function is written line by line, ideally with some identation at the start of each line. The syntax is the following:
+ - Then, the transition function is written line by line, with some identation at the start of each line. The syntax is the following:
     - `old state, symbol read: new state, symbol to write, direction`
  - To end the transition function definition, use the keyword `endprogr`
 
