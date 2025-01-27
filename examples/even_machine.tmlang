@@ -1,5 +1,5 @@
-// Calculates if a unary sequence of 1's is even or not
-// Halts on state 'yes' if even and 'no' otherwise
+// Calculates if a unary sequence of 1's on the starting tape is even or not
+// Halts on state 'yes' if even and on state 'no' otherwise
 
 name 'Even Machine'
 blank 0

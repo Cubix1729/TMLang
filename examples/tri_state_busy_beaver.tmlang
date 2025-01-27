@@ -1,5 +1,5 @@
 // Tri state busy beaver: https://en.wikipedia.org/wiki/Busy_beaver
-// Takes 14 steps to halt for empty tape
+// Takes 14 steps to halt for an empty tape
 
 
 name 'Tri State Busy Beaver'
