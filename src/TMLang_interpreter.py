@@ -22,6 +22,11 @@ RENDER_GRAPHICAL_TRANSITION_DIAGRAM_COMMAND = "#renderdiagram"
 STATE_DIAGRAM_FORMAT = "pdf"
 
 
+def get_separator() -> str:
+    # returns a separator with the same width as the terminal window
+    return "\n" + "\n" + "─" * get_terminal_size().columns + "\n" + "\n"
+
+
 class TMLangSyntaxError(Exception):
     pass
 
@@ -37,11 +42,6 @@ def evaluate_str(code: str) -> str:  # evaluates a string in TMLang
     if code.startswith(STRING_INDICATOR) and code.endswith(STRING_INDICATOR):
         return code[1:-1]
     return code
-
-
-def get_separator() -> str:
-    # returns a separator with the same width as the terminal window
-    return "\n" + "\n" + "─" * get_terminal_size().columns + "\n" + "\n"
 
 
 def evaluate_set(set_str: str) -> tuple:
@@ -61,11 +61,15 @@ def evaluate_set(set_str: str) -> tuple:
     return tuple(output_list)
 
 
-def is_comment_or_blank(line: str) -> bool:
-    # returns True if the line can be ignored by the interpreter
-    if line.strip() == "" or line.strip().startswith("//"):
-        return True
-    return False
+def is_blank(line: str) -> bool:
+    # returns True if the line can be ignored by the interpreter (i.e. it is blank)
+    return line.strip() == ""
+
+
+def remove_comments_and_blanks(line: str) -> str:
+    # removes the comment contained in the line (if there is one)
+    # it also removes all the blanks at the start and the end of the line
+    return re.sub(f"{COMMENT_INDICATOR}.*", "", line).strip()
 
 
 def interpret_from_code(code: str, render_image=True, automatically_open_image_generated=False) -> Generator[str]:
@@ -81,8 +85,8 @@ def interpret_from_code(code: str, render_image=True, automatically_open_image_g
         if all(x is not None for x in [blank_symbol, initial_state, final_states, machine_name]):
             break
 
-        code_line = code_lines[line_number].strip()
-        if not is_comment_or_blank(code_line):
+        code_line = remove_comments_and_blanks(code_lines[line_number])
+        if not is_blank(code_line):
             if code_line.startswith(MACHINE_NAME_KEYWORD):
                 argument = code_line[len(MACHINE_NAME_KEYWORD) :].strip()
                 machine_name = evaluate_str(argument)
@@ -107,20 +111,20 @@ def interpret_from_code(code: str, render_image=True, automatically_open_image_g
     if any(x is None for x in [blank_symbol, initial_state, final_states, machine_name]):
         raise TMLangValueError("Not all necessary values were precised (blank, initial, final, name)")
 
-    code_line = code_lines[line_number].strip()
+    code_line = remove_comments_and_blanks(code_lines[line_number])
     while not code_line == START_TRANSITION_FUNCTION_KEYWORD:
-        if not is_comment_or_blank(code_line):
+        if not is_blank(code_line):
             raise TMLangSyntaxError(f"line {line_number}: expected {START_TRANSITION_FUNCTION_KEYWORD}")
         line_number += 1
-        code_line = code_lines[line_number].strip()
+        code_line = remove_comments_and_blanks(code_lines[line_number])
 
     line_number += 1
-    code_line = code_lines[line_number].strip()
+    code_line = remove_comments_and_blanks(code_lines[line_number])
 
     transition_function = {}
 
     while not code_line == END_TRANSITION_FUNCTION_KEYWORD:
-        if not is_comment_or_blank(code_line):
+        if not is_blank(code_line):
             if re.fullmatch(".+,.+:.+,.+,.+", code_line):
                 key = tuple(x.strip() for x in code_line.split(":")[0].split(","))
 
@@ -131,7 +135,7 @@ def interpret_from_code(code: str, render_image=True, automatically_open_image_g
                 raise TMLangSyntaxError(f"line {line_number + 1}: expected {END_TRANSITION_FUNCTION_KEYWORD}")
         line_number += 1
         try:
-            code_line = code_lines[line_number].strip()
+            code_line = remove_comments_and_blanks(code_lines[line_number])
         except IndexError:
             raise TMLangSyntaxError(f"line {line_number}: expected {END_TRANSITION_FUNCTION_KEYWORD}")
 
@@ -146,9 +150,9 @@ def interpret_from_code(code: str, render_image=True, automatically_open_image_g
     # We then execute eventual commands
     is_first_action = True  # used for printing the separator correctly
     for line_number in range(line_number + 1, len(code_lines)):
-        code_line = code_lines[line_number].strip()
+        code_line = remove_comments_and_blanks(code_lines[line_number])
 
-        if not is_comment_or_blank(code_line):
+        if not is_blank(code_line):
 
             if not is_first_action:
                 yield get_separator()

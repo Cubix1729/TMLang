@@ -12,7 +12,7 @@ The definition of a Turing machine used in TMLang is similar to the one on the [
 
 ### TMLang Syntax
 
-Comments are written with `//`, and they must be in a separate line.
+Comments are written with `//` (inline comments are supported).
 TMLang interprets the code line by line, so statements cannot be separated into several lines.
 In TMLang, strings are written in two different ways: either with no quotation marks, or by using `''` to make it more clear.
 Sets are written using curly brackets.
