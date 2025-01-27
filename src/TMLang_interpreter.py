@@ -41,7 +41,7 @@ def evaluate_str(code: str) -> str:  # evaluates a string in TMLang
 
 def get_separator() -> str:
     # returns a separator with the same width as the terminal window
-    return "\n" + "\n" + "-" * get_terminal_size().columns + "\n" + "\n"
+    return "\n" + "\n" + "─" * get_terminal_size().columns + "\n" + "\n"
 
 
 def evaluate_set(set_str: str) -> tuple:
