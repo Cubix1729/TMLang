@@ -19,8 +19,6 @@ RUN_WITH_ALL_STEPS_COMMAND = "#runsteps"
 RUN_FINAL_STATE_ONLY_COMMAND = "#run"
 RENDER_GRAPHICAL_TRANSITION_DIAGRAM_COMMAND = "#renderdiagram"
 
-TRANSITION_FUNCTION_PATTERN = ".+,.+:.+,.+,.+"
-
 STATE_DIAGRAM_FORMAT = "pdf"
 
 
@@ -123,7 +121,7 @@ def interpret_from_code(code: str, render_image=True, automatically_open_image_g
 
     while not code_line == END_TRANSITION_FUNCTION_KEYWORD:
         if not is_comment_or_blank(code_line):
-            if re.fullmatch(TRANSITION_FUNCTION_PATTERN, code_line):
+            if re.fullmatch(".+,.+:.+,.+,.+", code_line):
                 key = tuple(x.strip() for x in code_line.split(":")[0].split(","))
 
                 value = tuple(x.strip() for x in code_line.split(":")[1].split(","))
