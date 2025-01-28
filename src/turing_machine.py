@@ -304,7 +304,7 @@ class TuringMachine:
             num_step += 1
 
         if not infinite_loop:
-            yield f"Turing machine '{self.name}' ended on state '{self.state}' from input '{starting_tape}' after {num_step} steps, with final tape:\n{self.get_tape()}"
+            yield f"Turing machine '{self.name}' halted on state '{self.state}' from input '{starting_tape}' after {num_step} steps, with final tape:\n{self.get_tape()}"
 
 
 class SimplifiedTuringMachine(TuringMachine):
