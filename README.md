@@ -15,7 +15,7 @@ The definition of a Turing machine used in TMLang is similar to the one on the [
 Comments are written with `//` (inline comments are supported).
 TMLang interprets the code line by line, so statements cannot be separated into several lines.
 In TMLang, strings are written in two different ways: either with no quotation marks, or by using `''` to make it more clear.
-Sets are written using curly brackets.
+Sets are written using curly brackets (normal set syntax).
 
 To create a Turing machine in TMLang, you first have to precise:
  - The machine's name, with the keyword `name`
@@ -37,64 +37,67 @@ When the Turing machine is completely defined, you can use it with the following
 
 #### Example
 
-Here is an example of a simple TMLang program (it can be found in [examples/one_third_machine.tmlang](./examples/one_third_machine.tmlang)):
+Here is an example of a simple TMLang program (it can be found in [examples/even_machine.tmlang](./examples/even_machine.tmlang)):
 
 ```
-// Computes the sequence 0101010101010101..., which is 1/3 in binary
+// Calculates if a unary sequence of 1's on the starting tape is even or not
+// Halts on state 'yes' if even and on state 'no' otherwise
 
-name 'One Third Machine'
-initial a
-final {}
+name 'Even Machine'
 blank 0
-
+initial s0
+final {yes, no}
 
 startprogr
-    a, 0: b, 0, R
-    b, 0: a, 1, R
+    s0, 1: s1, 1, R
+    s1, 1: s0, 1, R
+    s0, 0: yes, 0, N
+    s1, 0: no, 0, N
 endprogr
 
 
-
 #printdef
-#run ''
-#renderdiagram svg
+#run '111'
+#renderdiagram
 ```
 
 Ouput:
 
 ```
-Turing machine 'One Third Machine' defined with:
-* Set of states 𝙌 = {'a', 'b'}
-* Initial state 𝙦₀ = 'a'
-* Set of final/accepting states 𝙁 = ∅
-* Alphabet 𝜞 = {'0', '1'} with blank symbol 𝑩 = '0'
+Turing machine 'Even Machine' defined with:
+* Set of states 𝙌 = {'yes', 'no', 's1', 's0'}
+* Initial state 𝙦₀ = 's0'
+* Set of final/accepting states 𝙁 = {'no', 'yes'}
+* Alphabet 𝜞 = {'1', '0'} with blank symbol 𝑩 = '0'
 * Transition function 𝛿 : (𝙌 ∖ 𝙁) × 𝙁 → 𝙌 × 𝙁 × {L, R, N}, represented as the following table:
 
 ┌───────────────┬────────────────┬────────────┬──────────────┬──────────────────┐
 │ Current state │ Scanned symbol │ Next state │ Print symbol │ Moving direction │
 ├───────────────┼────────────────┼────────────┼──────────────┼──────────────────┤
-│       a       │       0        │     b      │      0       │        R         │
-│       b       │       0        │     a      │      1       │        R         │
+│       s0      │       1        │     s1     │      1       │        R         │
+│       s1      │       1        │     s0     │      1       │        R         │
+│       s0      │       0        │    yes     │      0       │        N         │
+│       s1      │       0        │     no     │      0       │        N         │
 └───────────────┴────────────────┴────────────┴──────────────┴──────────────────┘
 
 
 ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 
-The Turing machine seems to be caught in an infinite loop. After 200 steps, the tape is:
-0101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010
-                                                                                                                                                                                                      ^
+Turing machine 'Even Machine' halted on state 'no' from input '111' after 5 steps, with final tape:
+1110
+   ^
 
 
 ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 
-Transition diagram rendered as svg to file 'transition_diagram_One_Third_Machine.svg'
+Transition diagram rendered as svg to file 'transition_diagram_Even_Machine.svg'
 ```
 
-transition_diagram_One_Third_Machine.svg (other examples of images rendered can be found in [images](./images/) folder):
+transition_diagram_Even_Machine.svg (other examples of images rendered can be found in [images](./images/)):
 
-![alt text](./images/transition_diagram_One_Third_Machine.svg)
+![alt text](./images/transition_diagram_Even_Machine.svg)
 
 
 ### CLI Progam
