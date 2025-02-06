@@ -29,7 +29,7 @@ def main():
         "-a",
         "--auto-open",
         action="store_true",
-        help="when rendering a transition diagram, the program will automatically the generated image",
+        help="when rendering a transition diagram, the program will automatically open the generated image",
     )
 
     args = parser.parse_args()

@@ -115,7 +115,7 @@ options:
   -h, --help           show this help message and exit
   -o, --output OUTPUT  the file to write the generated output (default: stdout)
   -v, --verify         if used, the output is printed only in case of error in the program given
-  -a, --auto-open      when rendering a transition diagram, the program will automatically the generated image
+  -a, --auto-open      when rendering a transition diagram, the program will automatically open the generated image
 ```
 
 
