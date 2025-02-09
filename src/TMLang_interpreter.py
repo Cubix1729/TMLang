@@ -23,7 +23,7 @@ DEFAULT_STATE_DIAGRAM_FORMAT = "pdf"
 
 
 def get_separator() -> str:
-    # returns a separator with the same width as the terminal window
+    """Returns a separator with the same width as the terminal window"""
     return "\n" + "\n" + "─" * get_terminal_size().columns + "\n" + "\n"
 
 
@@ -36,9 +36,9 @@ class TMLangValueError(Exception):
 
 
 def evaluate_str(code: str) -> str:
-    # evaluates a string in TMLang
-    # ex n°1: str_from_str("'test'") = 'test'
-    # ex n°2: str_from_str("test") = 'test'
+    """Evaluates a string in TMLang"""
+    # ex1: str_from_str("'test'") = 'test'
+    # ex2: str_from_str("test") = 'test'
     code = code.strip()
     if code.startswith(STRING_INDICATOR) and code.endswith(STRING_INDICATOR):
         return code[1:-1]
@@ -46,9 +46,9 @@ def evaluate_str(code: str) -> str:
 
 
 def evaluate_set(set_str: str) -> tuple:
-    # takes a str written with set notation and returns a tuple listing the elements given
-    # ex : evaluate_set("{test, test1, 'test 2'}") gives ('test', 'test1', 'test 2')
-    # if the function returns None, the input is invalid
+    """Takes a str written with set notation and returns a tuple listing the elements given
+    If the input is invalid, it returns None"""
+    # ex: evaluate_set("{test, test1, 'test 2'}") gives ('test', 'test1', 'test 2')
     set_str = set_str.strip()
     if not (set_str.startswith("{") and set_str.endswith("}")):
         return None
@@ -63,13 +63,13 @@ def evaluate_set(set_str: str) -> tuple:
 
 
 def is_blank(line: str) -> bool:
-    # returns True if the line can be ignored by the interpreter (i.e. it is blank)
+    """returns True if the line can be ignored by the interpreter (i.e. it is blank)"""
     return line.strip() == ""
 
 
 def remove_comments_and_blanks(line: str) -> str:
-    # removes the comment contained in the line (if there is one)
-    # it also removes all the blanks at the the end of the line
+    """Removes the comment contained in the line (if there is one)
+    It also removes all the blanks at the the end of the line"""
     return re.sub(f"{COMMENT_INDICATOR}.*", "", line).rstrip()
 
 

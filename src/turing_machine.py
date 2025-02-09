@@ -79,7 +79,7 @@ class TransitionFunction:
         self.transition_function = transition_function
 
     def transition_table(self) -> str:
-        # Outputs the transition table as a string
+        """Outputs the transition table as a string"""
         table = PrettyTable(
             [
                 "Current state",
@@ -158,7 +158,6 @@ class TuringMachine:
     alphabet: a list/tuple of the symbols that can appear on the tape
     blank_symbol: a string containing the default symbol
     transition_function: the transition function
-
     """
 
     def __init__(
@@ -207,7 +206,7 @@ class TuringMachine:
         )  # We don't precise the starting tape; it will be initialised later on
 
     def get_formal_definition(self) -> str:
-        # returns a string representation of the machine's definition
+        """Returns a string representation of the machine's definition"""
         output = ""
         output += f"Turing machine '{self.name}' defined with:\n"
         output += f"* Set of states 𝙌 = {set(self.possible_states)}\n"
