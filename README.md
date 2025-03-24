@@ -24,13 +24,13 @@ To create a Turing machine in TMLang, you first have to precise:
  - The set of final states (possibly empty), with `final`
 
 Then, you write the transition function in this way:
- - You first use the keyword `startprog` to indicate you are starting the transition function
+ - You first use the keyword `startprog` to indicate the start of the transition function
  - Then, the transition function is written line by line, with some identation at the start of each line. The syntax is the following:
     - `old state, symbol read: new state, symbol to write, direction`
  - To end the transition function definition, use the keyword `endprogr`
 
 When the Turing machine is completely defined, you can use it with the following commands:
- - `#printdef` to print the complete mathematical definition
+ - `#printdef` to print the complete mathematical definition, along with the transition table
  - `#run` to run the Turing machine from the starting tape precised, and print the final result of the computation
  - `#runsteps` does the same thing except it prints all intermediate steps as well
  - `#renderdiagram` renders the transition diagram to a file in the format precised (default: pdf)
@@ -97,12 +97,12 @@ Transition diagram rendered as svg to file 'transition_diagram_Even_Machine.svg'
 
 transition_diagram_Even_Machine.svg (other examples of images rendered can be found in [images](./images/)):
 
-![alt text](./images/transition_diagram_Even_Machine.svg)
+![transition_diagram_Even_Machine.svg](./images/transition_diagram_Even_Machine.svg)
 
 
 ### CLI Progam
 
-To execute a TMLang Turing machine, the command line interpreter ([TMLang.py](./src/TMLang.py)) can be used.
+To interpret a TMLang Turing machine, the command line interpreter ([TMLang.py](./src/TMLang.py)) can be used.
 ```
 usage: TMLang.py [-h] [-o OUTPUT] [-v] [-a] filename
 
@@ -124,4 +124,4 @@ options:
  - `prettytable` used for displaying transition tables
  - `graphviz` used for rendering graphical transition diagrams
 
- `black` was used for code formatting
+`black` was used for code formatting
